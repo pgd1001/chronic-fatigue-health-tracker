@@ -64,7 +64,10 @@
   - Write unit tests for energy tracking logic
   - _Requirements: 2.1, 5.1, 4.1, 4.2_
 
-- [ ] 7. Nutrition and Hydration Tracking
+- [x] 7. Nutrition and Hydration Tracking
+
+
+
   - Build nutrition logging interface for 1-Product Foods and 1,000-Year Rule
   - Implement hydration tracking with daily water intake goals
   - Create supplement reminder system (magnesium, D3, iodine)
@@ -72,7 +75,10 @@
   - Write tests for nutrition tracking functionality
   - _Requirements: 1.3, 1.4, 4.1, 4.3_
 
-- [ ] 8. Sleep Optimization Features
+- [x] 8. Sleep Optimization Features
+
+
+
   - Implement sleep routine checklist (blue light, screen replacement, environment)
   - Create evening reminder system with gentle notifications
   - Build sleep quality tracking and correlation with energy levels

@@ -4,6 +4,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { DailyAnchorRoutine } from "@/components/health/daily-anchor-routine";
 import { EnergyDashboard } from "@/components/health/energy-dashboard";
+import { NutritionDashboard } from "@/components/health/nutrition-dashboard";
+import { SleepOptimization } from "@/components/health/sleep-optimization";
+import { SleepDashboard } from "@/components/health/sleep-dashboard";
+import { EveningReminders } from "@/components/health/evening-reminders";
 import { Heart, Activity, Moon, Droplets, User, Settings } from "lucide-react";
 
 export default function DevPage() {
@@ -101,6 +105,16 @@ export default function DevPage() {
           }}
         />
 
+        {/* Nutrition Dashboard */}
+        <NutritionDashboard 
+          onSaveNutrition={(entry) => {
+            console.log('Nutrition entry saved:', entry);
+          }}
+          onAddHydration={(amount, type) => {
+            console.log('Hydration added:', { amount, type });
+          }}
+        />
+
         {/* Daily Anchor Routine */}
         <DailyAnchorRoutine 
           onComplete={(exercises, duration) => {
@@ -110,6 +124,55 @@ export default function DevPage() {
             console.log('Progress:', { exercise, progress });
           }}
         />
+
+        {/* Sleep Optimization */}
+        <div className="mt-8">
+          <SleepOptimization 
+            userId="dev-user"
+            onSleepDataUpdate={(data) => {
+              console.log('Sleep data updated:', data);
+            }}
+          />
+        </div>
+
+        {/* Sleep Dashboard */}
+        <div className="mt-8">
+          <SleepDashboard 
+            sleepData={[
+              {
+                date: '2024-01-15',
+                sleepQuality: 8,
+                sleepDuration: 7.5,
+                energyLevel: 7,
+                routineCompletion: 100,
+                bluelightReduction: true,
+                screenReplacement: true,
+                environmentOptimized: true,
+              },
+              {
+                date: '2024-01-14',
+                sleepQuality: 6,
+                sleepDuration: 6.5,
+                energyLevel: 5,
+                routineCompletion: 67,
+                bluelightReduction: true,
+                screenReplacement: false,
+                environmentOptimized: true,
+              },
+            ]}
+            energyCorrelation={0.75}
+          />
+        </div>
+
+        {/* Evening Reminders */}
+        <div className="mt-8">
+          <EveningReminders 
+            userId="dev-user"
+            onReminderUpdate={(reminders) => {
+              console.log('Reminders updated:', reminders);
+            }}
+          />
+        </div>
 
         {/* Development Notice */}
         <div className="mt-8">
