@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth/config";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -21,26 +20,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check authentication for protected routes
-  try {
-    const session = await auth.api.getSession({
-      headers: request.headers,
-    });
-
-    if (!session) {
-      // Redirect to auth page if not authenticated
-      const authUrl = new URL("/auth", request.url);
-      authUrl.searchParams.set("redirect", pathname);
-      return NextResponse.redirect(authUrl);
-    }
-
-    return NextResponse.next();
-  } catch (error) {
-    // If there's an error checking the session, redirect to auth
-    const authUrl = new URL("/auth", request.url);
-    authUrl.searchParams.set("redirect", pathname);
-    return NextResponse.redirect(authUrl);
-  }
+  // For now, redirect all protected routes to auth until we have a proper database setup
+  // TODO: Re-enable session checking once database is configured
+  const authUrl = new URL("/auth", request.url);
+  authUrl.searchParams.set("redirect", pathname);
+  return NextResponse.redirect(authUrl);
 }
 
 export const config = {

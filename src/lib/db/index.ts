@@ -10,6 +10,8 @@ export * from './utils';
 // Database services
 export { UserService } from './services/user.service';
 export { HealthLogService } from './services/health-log.service';
+export { MovementService } from './services/movement.service';
+export { BiometricService } from './services/biometric.service';
 
 // Health check utilities
 export { getDatabaseHealth, createHealthCheckHandler } from './health-check';

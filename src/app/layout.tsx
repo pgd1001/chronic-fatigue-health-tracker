@@ -8,12 +8,13 @@ export const metadata: Metadata = {
   title: 'Chronic Fatigue Health Tracker',
   description: 'Gentle, evidence-based health management for ME/CFS and Long COVID',
   manifest: '/manifest.json',
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
   themeColor: '#000000',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
 };
 
 export default function RootLayout({

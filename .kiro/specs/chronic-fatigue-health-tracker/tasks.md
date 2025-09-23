@@ -32,14 +32,20 @@
   - Write unit tests for authentication flows
   - _Requirements: 8.1, 8.2, 8.4, 8.5, 6.1_
 
-- [ ] 4. Core Data Models and Types
+
+- [x] 4. Core Data Models and Types
+
+
   - Define TypeScript interfaces for UserProfile, DailyHealthLog, and MovementSession
   - Implement data validation schemas using Zod
   - Create database service layer with CRUD operations
   - Write unit tests for data models and validation
   - _Requirements: 5.1, 5.2, 6.2_
 
-- [ ] 5. Daily Anchor Routine Component
+- [x] 5. Daily Anchor Routine Component
+
+
+
   - Build DailyAnchorComponent with timer functionality for breathing, mobility, and stretches
   - Implement completion tracking and progress visualization
   - Create calming UI with gentle animations and visual feedback

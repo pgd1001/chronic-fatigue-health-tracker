@@ -69,9 +69,10 @@ export default function Home() {
             <Button
               size="lg"
               variant="outline"
+              onClick={() => router.push("/dev")}
               className="text-lg px-8 py-3"
             >
-              Learn More
+              Preview Dashboard
             </Button>
           </div>
         </div>
