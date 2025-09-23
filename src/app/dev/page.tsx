@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DailyAnchorRoutine } from "@/components/health/daily-anchor-routine";
-import { EnergyAssessment } from "@/components/health/energy-assessment";
+import { EnergyDashboard } from "@/components/health/energy-dashboard";
 import { Heart, Activity, Moon, Droplets, User, Settings } from "lucide-react";
 
 export default function DevPage() {
@@ -91,10 +91,13 @@ export default function DevPage() {
           </Card>
         </div>
 
-        {/* Energy Assessment */}
-        <EnergyAssessment 
-          onAssessment={(level, notes) => {
-            console.log('Energy assessment:', { level, notes });
+        {/* Energy Dashboard */}
+        <EnergyDashboard 
+          onSaveAssessment={(energy, notes) => {
+            console.log('Energy assessment saved:', { energy, notes });
+          }}
+          onExportData={() => {
+            console.log('Exporting energy data...');
           }}
         />
 
