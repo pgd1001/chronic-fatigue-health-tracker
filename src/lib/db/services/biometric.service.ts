@@ -352,12 +352,86 @@ export class BiometricService {
 
         return {
           latestHeartRate: latest?.heartRate || null,
-          latestHRV: latest?.heartRateVariability || null,
+          latestHRV: typeof latest?.heartRateVariability === 'string' 
+            ? parseFloat(latest.heartRateVariability) 
+            : latest?.heartRateVariability || null,
           latestMeasurementDate: latest?.timestamp || null,
           weeklyAverage: trends.averageHeartRate || null,
           measurementQuality: latest?.quality || null,
           trend: trends.heartRateTrend,
         };
+      });
+    } catch (error) {
+      handleDatabaseError(error);
+    }
+  }
+
+  // Create biometric measurement from camera capture
+  static async createBiometricFromCapture(
+    userId: string,
+    reading: {
+      heartRate: number;
+      hrv: number;
+      timestamp: Date;
+      confidence: number;
+      quality: 'excellent' | 'good' | 'fair' | 'poor';
+      duration: number;
+    }
+  ): Promise<BiometricMeasurement> {
+    try {
+      const measurementData: CreateBiometricMeasurement = {
+        userId,
+        heartRate: reading.heartRate,
+        heartRateVariability: reading.hrv,
+        timestamp: reading.timestamp,
+        measurementDuration: reading.duration,
+        quality: reading.quality,
+        rawData: {
+          confidence: reading.confidence,
+          captureMethod: 'camera',
+          processingVersion: '1.0',
+        },
+      };
+
+      return await this.createBiometricMeasurement(measurementData);
+    } catch (error) {
+      handleDatabaseError(error);
+    }
+  }
+
+  // Get biometric readings for dashboard display
+  static async getBiometricReadingsForDashboard(
+    userId: string,
+    limit: number = 50
+  ): Promise<Array<{
+    id: string;
+    heartRate: number;
+    hrv: number;
+    timestamp: Date;
+    confidence: number;
+    quality: 'excellent' | 'good' | 'fair' | 'poor';
+    duration: number;
+  }>> {
+    try {
+      return await withRetry(async () => {
+        const measurements = await db
+          .select()
+          .from(biometricMeasurements)
+          .where(eq(biometricMeasurements.userId, userId))
+          .orderBy(desc(biometricMeasurements.timestamp))
+          .limit(limit);
+
+        return measurements.map(m => ({
+          id: m.id,
+          heartRate: m.heartRate || 0,
+          hrv: typeof m.heartRateVariability === 'string' 
+            ? parseFloat(m.heartRateVariability) 
+            : m.heartRateVariability || 0,
+          timestamp: m.timestamp,
+          confidence: (m.rawData as any)?.confidence || 0.5,
+          quality: m.quality as 'excellent' | 'good' | 'fair' | 'poor',
+          duration: m.measurementDuration || 30,
+        }));
       });
     } catch (error) {
       handleDatabaseError(error);

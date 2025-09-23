@@ -86,7 +86,10 @@
   - Write tests for sleep tracking components
   - _Requirements: 1.5, 4.2, 5.1_
 
-- [ ] 9. Camera-Based Biometric Capture
+- [x] 9. Camera-Based Biometric Capture
+
+
+
   - Implement BiometricCaptureComponent using device camera API
   - Integrate TensorFlow.js for client-side heart rate and HRV measurement
   - Add real-time feedback during biometric capture process

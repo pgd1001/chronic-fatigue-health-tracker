@@ -8,6 +8,8 @@ import { NutritionDashboard } from "@/components/health/nutrition-dashboard";
 import { SleepOptimization } from "@/components/health/sleep-optimization";
 import { SleepDashboard } from "@/components/health/sleep-dashboard";
 import { EveningReminders } from "@/components/health/evening-reminders";
+import { BiometricCapture } from "@/components/health/biometric-capture";
+import { BiometricDashboard } from "@/components/health/biometric-dashboard";
 import { Heart, Activity, Moon, Droplets, User, Settings } from "lucide-react";
 
 export default function DevPage() {
@@ -170,6 +172,47 @@ export default function DevPage() {
             userId="dev-user"
             onReminderUpdate={(reminders) => {
               console.log('Reminders updated:', reminders);
+            }}
+          />
+        </div>
+
+        {/* Biometric Capture */}
+        <div className="mt-8">
+          <BiometricCapture 
+            onReadingComplete={(reading) => {
+              console.log('Biometric reading completed:', reading);
+            }}
+            onError={(error) => {
+              console.error('Biometric capture error:', error);
+            }}
+          />
+        </div>
+
+        {/* Biometric Dashboard */}
+        <div className="mt-8">
+          <BiometricDashboard 
+            biometricData={[
+              {
+                id: '1',
+                heartRate: 72,
+                hrv: 35.2,
+                timestamp: new Date('2024-01-15T10:30:00'),
+                confidence: 0.85,
+                quality: 'excellent',
+                duration: 30,
+              },
+              {
+                id: '2',
+                heartRate: 68,
+                hrv: 42.1,
+                timestamp: new Date('2024-01-14T09:15:00'),
+                confidence: 0.78,
+                quality: 'good',
+                duration: 30,
+              },
+            ]}
+            onExportData={() => {
+              console.log('Exporting biometric data...');
             }}
           />
         </div>
