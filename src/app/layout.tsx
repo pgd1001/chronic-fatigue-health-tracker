@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { PWAProvider } from '@/components/pwa/pwa-provider';
 import { AccessibilityProvider } from '@/lib/accessibility/accessibility-context';
+import PerformanceMonitor from '@/components/performance/performance-monitor';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -55,6 +56,10 @@ export default function RootLayout({
               Skip to main content
             </a>
             {children}
+            <PerformanceMonitor 
+              enableTesting={process.env.NODE_ENV === 'development'}
+              showSuggestions={true}
+            />
           </PWAProvider>
         </AccessibilityProvider>
       </body>
