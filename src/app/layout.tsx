@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { PWAProvider } from '@/components/pwa/pwa-provider';
+import { AccessibilityProvider } from '@/lib/accessibility/accessibility-context';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -48,9 +49,14 @@ export default function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body className={inter.className}>
-        <PWAProvider>
-          {children}
-        </PWAProvider>
+        <AccessibilityProvider>
+          <PWAProvider>
+            <a href="#main-content" className="skip-link">
+              Skip to main content
+            </a>
+            {children}
+          </PWAProvider>
+        </AccessibilityProvider>
       </body>
     </html>
   );
