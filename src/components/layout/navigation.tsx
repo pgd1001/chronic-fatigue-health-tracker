@@ -12,7 +12,8 @@ import {
   Dumbbell,
   AlertCircle,
   Camera,
-  FileText
+  FileText,
+  Shield
 } from 'lucide-react';
 
 const navigationItems = [
@@ -60,6 +61,11 @@ const navigationItems = [
     name: 'Reports',
     href: '/reports',
     icon: FileText,
+  },
+  {
+    name: 'Privacy',
+    href: '/privacy',
+    icon: Shield,
   },
 ];
 
