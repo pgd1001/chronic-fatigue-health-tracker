@@ -10,6 +10,8 @@ import { SleepDashboard } from "@/components/health/sleep-dashboard";
 import { EveningReminders } from "@/components/health/evening-reminders";
 import { BiometricCapture } from "@/components/health/biometric-capture";
 import { BiometricDashboard } from "@/components/health/biometric-dashboard";
+import { MovementSession } from "@/components/health/movement-session";
+import { MovementDashboard } from "@/components/health/movement-dashboard";
 import { Heart, Activity, Moon, Droplets, User, Settings } from "lucide-react";
 
 export default function DevPage() {
@@ -213,6 +215,71 @@ export default function DevPage() {
             ]}
             onExportData={() => {
               console.log('Exporting biometric data...');
+            }}
+          />
+        </div>
+
+        {/* Movement Session */}
+        <div className="mt-8">
+          <MovementSession 
+            userId="dev-user"
+            userEnergyLevel={6}
+            onSessionComplete={(sessionData) => {
+              console.log('Movement session completed:', sessionData);
+            }}
+            onSessionUpdate={(sessionData) => {
+              console.log('Movement session updated:', sessionData);
+            }}
+          />
+        </div>
+
+        {/* Movement Dashboard */}
+        <div className="mt-8">
+          <MovementDashboard 
+            movementData={[
+              {
+                id: '1',
+                date: '2024-01-15T10:30:00',
+                sessionType: 'full_routine',
+                duration: 1140,
+                completed: true,
+                completionPercentage: 100,
+                preSessionEnergy: 6,
+                postSessionFatigue: 4,
+                postSessionBreath: 7,
+                postSessionStability: 6,
+                intensity: 3,
+                phasesCompleted: 4,
+                totalPhases: 4,
+              },
+              {
+                id: '2',
+                date: '2024-01-13T09:15:00',
+                sessionType: 'quick_mobility',
+                duration: 480,
+                completed: true,
+                completionPercentage: 100,
+                preSessionEnergy: 4,
+                postSessionFatigue: 3,
+                postSessionBreath: 6,
+                postSessionStability: 5,
+                intensity: 2,
+                phasesCompleted: 2,
+                totalPhases: 2,
+              },
+            ]}
+            movementStats={{
+              totalSessions: 12,
+              completedSessions: 9,
+              completionRate: 75,
+              averageIntensity: 2.8,
+              averageDuration: 720,
+              totalExerciseTime: 144,
+              trend: 'stable',
+              lastSessionDate: '2024-01-15',
+            }}
+            onExportData={() => {
+              console.log('Exporting movement data...');
             }}
           />
         </div>

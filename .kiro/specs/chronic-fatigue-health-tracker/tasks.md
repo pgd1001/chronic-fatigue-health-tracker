@@ -98,7 +98,14 @@
   - Write tests for biometric processing algorithms
   - _Requirements: 3.1, 4.1, 6.2_
 
-- [ ] 10. Movement Session Management
+- [x] 10. Movement Session Management
+
+
+
+
+
+
+
   - Build MovementSessionComponent with 4-phase structure (warmup, resistance, flow, cooldown)
   - Implement exercise selection based on user energy levels
   - Create post-session self-check rating system (fatigue, breath, stability)
