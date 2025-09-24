@@ -161,7 +161,16 @@ const nextConfig = {
         ],
       },
       {
-        source: '/(.*\\.(js|css|woff|woff2|ttf|otf|eot|ico|png|jpg|jpeg|gif|svg|webp|avif))',
+        source: '/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/:path*',
         headers: [
           {
             key: 'Cache-Control',
