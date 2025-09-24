@@ -11,7 +11,8 @@ import {
   Droplets, 
   Dumbbell,
   AlertCircle,
-  Camera
+  Camera,
+  FileText
 } from 'lucide-react';
 
 const navigationItems = [
@@ -54,6 +55,11 @@ const navigationItems = [
     name: 'Nutrition',
     href: '/nutrition',
     icon: Droplets,
+  },
+  {
+    name: 'Reports',
+    href: '/reports',
+    icon: FileText,
   },
 ];
 
