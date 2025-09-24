@@ -1,27 +1,126 @@
 {
   "name": "Chronic Fatigue Health Tracker",
   "short_name": "CF Tracker",
-  "description": "Gentle, evidence-based health management for ME/CFS and Long COVID",
+  "description": "Evidence-based health tracking for ME/CFS and Long COVID patients with gentle, empathetic design",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#3b82f6",
   "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["health", "medical", "lifestyle", "productivity"],
+  "screenshots": [
+    {
+      "src": "/images/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Dashboard view showing energy tracking and daily routines"
+    },
+    {
+      "src": "/images/screenshot-narrow.png",
+      "sizes": "640x1136",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile symptom tracking interface"
+    }
+  ],
   "icons": [
     {
-      "src": "/icon-192x192.png",
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/icon-512x512.png",
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
     }
   ],
-  "categories": ["health", "medical", "lifestyle"],
-  "lang": "en",
-  "dir": "ltr"
+  "shortcuts": [
+    {
+      "name": "Quick Energy Check",
+      "short_name": "Energy",
+      "description": "Quickly log your current energy level",
+      "url": "/energy?quick=true",
+      "icons": [
+        {
+          "src": "/icons/shortcut-energy.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Log Symptoms",
+      "short_name": "Symptoms",
+      "description": "Track your symptoms for today",
+      "url": "/symptoms?quick=true",
+      "icons": [
+        {
+          "src": "/icons/shortcut-symptoms.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Daily Routine",
+      "short_name": "Routine",
+      "description": "Start your daily anchor routine",
+      "url": "/anchor",
+      "icons": [
+        {
+          "src": "/icons/shortcut-routine.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
 }
