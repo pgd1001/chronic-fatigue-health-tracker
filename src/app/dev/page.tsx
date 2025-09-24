@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DailyAnchorRoutine } from "@/components/health/daily-anchor-routine";
 import { EnergyDashboard } from "@/components/health/energy-dashboard";
 import { NutritionDashboard } from "@/components/health/nutrition-dashboard";
@@ -12,7 +13,11 @@ import { BiometricCapture } from "@/components/health/biometric-capture";
 import { BiometricDashboard } from "@/components/health/biometric-dashboard";
 import { MovementSession } from "@/components/health/movement-session";
 import { MovementDashboard } from "@/components/health/movement-dashboard";
-import { Heart, Activity, Moon, Droplets, User, Settings } from "lucide-react";
+import { SymptomTracker } from "@/components/health/symptom-tracker";
+import { SymptomProgress } from "@/components/health/symptom-progress";
+import { HealthcareReports } from "@/components/health/healthcare-reports";
+import { PrivacyDashboard } from "@/components/privacy/privacy-dashboard";
+import { Heart, Activity, Moon, Droplets, User, Settings, AlertCircle, FileText, Shield } from "lucide-react";
 
 export default function DevPage() {
   return (
@@ -40,12 +45,24 @@ export default function DevPage() {
             Welcome to Development Mode
           </h2>
           <p className="text-muted-foreground">
-            This is a preview of the health tracking dashboard without authentication.
+            This is a preview of the health tracking dashboard without authentication. 
+            Browse through the tabs to see all implemented features.
           </p>
         </div>
 
-        {/* Quick Stats Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+        <Tabs defaultValue="dashboard" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-6">
+            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+            <TabsTrigger value="symptoms">Symptoms</TabsTrigger>
+            <TabsTrigger value="reports">Reports</TabsTrigger>
+            <TabsTrigger value="privacy">Privacy</TabsTrigger>
+            <TabsTrigger value="health">Health</TabsTrigger>
+            <TabsTrigger value="movement">Movement</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="dashboard" className="space-y-6">
+            {/* Quick Stats Grid */}
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Energy Level</CardTitle>
@@ -284,19 +301,253 @@ export default function DevPage() {
           />
         </div>
 
-        {/* Development Notice */}
-        <div className="mt-8">
-          <Card className="border-dashed border-2 border-muted">
+          </TabsContent>
+
+          <TabsContent value="symptoms" className="space-y-6">
+            <div className="grid gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <AlertCircle className="h-5 w-5" />
+                    Symptom Tracking
+                  </CardTitle>
+                  <CardDescription>
+                    Track your symptoms and view progress over time
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <SymptomTracker
+                    userId="dev-user"
+                    date="2024-01-15"
+                    onSave={async (data) => {
+                      console.log('Symptoms saved:', data);
+                    }}
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Progress & Insights</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <SymptomProgress
+                    userId="dev-user"
+                    progressMetrics={{
+                      period: 'month',
+                      startDate: '2024-01-01',
+                      endDate: '2024-01-31',
+                      averageFatigue: 6.5,
+                      averagePEM: 5.2,
+                      averageBrainFog: 7.1,
+                      averageSleep: 4.8,
+                      averageWellbeing: 5.5,
+                      fatiguetrend: 'improving',
+                      overallTrend: 'improving',
+                      goodDays: 12,
+                      difficultDays: 8,
+                      topSymptoms: [
+                        {
+                          symptomType: 'fatigue',
+                          averageSeverity: 6.5,
+                          frequency: 85,
+                          trendDirection: 'improving',
+                        },
+                      ],
+                    }}
+                    symptomTrends={[
+                      { date: '2024-01-01', severity: 8 },
+                      { date: '2024-01-02', severity: 7 },
+                      { date: '2024-01-03', severity: 6 },
+                    ]}
+                    correlations={[]}
+                    onPeriodChange={(period) => console.log('Period changed:', period)}
+                    onSymptomSelect={(symptom) => console.log('Symptom selected:', symptom)}
+                    selectedSymptom="fatigue"
+                  />
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="reports" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  Healthcare Provider Reports
+                </CardTitle>
+                <CardDescription>
+                  Generate and manage reports for healthcare providers
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <HealthcareReports userId="dev-user" />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="privacy" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield className="h-5 w-5" />
+                  Privacy & Data Control
+                </CardTitle>
+                <CardDescription>
+                  Manage your privacy settings and exercise your GDPR rights
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <PrivacyDashboard userId="dev-user" />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="health" className="space-y-6">
+            {/* Energy Dashboard */}
+            <EnergyDashboard 
+              onSaveAssessment={(energy, notes) => {
+                console.log('Energy assessment saved:', { energy, notes });
+              }}
+              onExportData={() => {
+                console.log('Exporting energy data...');
+              }}
+            />
+
+            {/* Nutrition Dashboard */}
+            <NutritionDashboard 
+              onSaveNutrition={(entry) => {
+                console.log('Nutrition entry saved:', entry);
+              }}
+              onAddHydration={(amount, type) => {
+                console.log('Hydration added:', { amount, type });
+              }}
+            />
+
+            {/* Sleep Components */}
+            <SleepOptimization 
+              userId="dev-user"
+              onSleepDataUpdate={(data) => {
+                console.log('Sleep data updated:', data);
+              }}
+            />
+
+            <SleepDashboard 
+              sleepData={[
+                {
+                  date: '2024-01-15',
+                  sleepQuality: 8,
+                  sleepDuration: 7.5,
+                  energyLevel: 7,
+                  routineCompletion: 100,
+                  bluelightReduction: true,
+                  screenReplacement: true,
+                  environmentOptimized: true,
+                },
+              ]}
+              energyCorrelation={0.75}
+            />
+
+            {/* Biometric Components */}
+            <BiometricCapture 
+              onReadingComplete={(reading) => {
+                console.log('Biometric reading completed:', reading);
+              }}
+              onError={(error) => {
+                console.error('Biometric capture error:', error);
+              }}
+            />
+
+            <BiometricDashboard 
+              biometricData={[
+                {
+                  id: '1',
+                  heartRate: 72,
+                  hrv: 35.2,
+                  timestamp: new Date('2024-01-15T10:30:00'),
+                  confidence: 0.85,
+                  quality: 'excellent',
+                  duration: 30,
+                },
+              ]}
+              onExportData={() => {
+                console.log('Exporting biometric data...');
+              }}
+            />
+          </TabsContent>
+
+          <TabsContent value="movement" className="space-y-6">
+            {/* Daily Anchor Routine */}
+            <DailyAnchorRoutine 
+              onComplete={(exercises, duration) => {
+                console.log('Routine completed:', { exercises, duration });
+              }}
+              onProgress={(exercise, progress) => {
+                console.log('Progress:', { exercise, progress });
+              }}
+            />
+
+            {/* Movement Session */}
+            <MovementSession 
+              userId="dev-user"
+              userEnergyLevel={6}
+              onSessionComplete={(sessionData) => {
+                console.log('Movement session completed:', sessionData);
+              }}
+              onSessionUpdate={(sessionData) => {
+                console.log('Movement session updated:', sessionData);
+              }}
+            />
+
+            {/* Movement Dashboard */}
+            <MovementDashboard 
+              movementData={[
+                {
+                  id: '1',
+                  date: '2024-01-15T10:30:00',
+                  sessionType: 'full_routine',
+                  duration: 1140,
+                  completed: true,
+                  completionPercentage: 100,
+                  preSessionEnergy: 6,
+                  postSessionFatigue: 4,
+                  postSessionBreath: 7,
+                  postSessionStability: 6,
+                  intensity: 3,
+                  phasesCompleted: 4,
+                  totalPhases: 4,
+                },
+              ]}
+              movementStats={{
+                totalSessions: 12,
+                completedSessions: 9,
+                completionRate: 75,
+                averageIntensity: 2.8,
+                averageDuration: 720,
+                totalExerciseTime: 144,
+                trend: 'stable',
+                lastSessionDate: '2024-01-15',
+              }}
+              onExportData={() => {
+                console.log('Exporting movement data...');
+              }}
+            />
+          </TabsContent>
+
+          {/* Development Notice */}
+          <Card className="border-dashed border-2 border-muted mt-8">
             <CardHeader>
               <CardTitle className="text-muted-foreground">Development Mode</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                This is a development preview showing the dashboard layout and components. 
+                This is a development preview showing all implemented components. 
                 In production, this would require authentication and connect to a real database.
+                Navigate to <code className="bg-muted px-1 rounded">http://localhost:3000/dev</code> to see this preview.
               </p>
               <div className="flex gap-2 mt-4">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={() => window.location.href = '/auth'}>
                   View Auth Flow
                 </Button>
                 <Button variant="outline" size="sm">
@@ -306,7 +557,7 @@ export default function DevPage() {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </Tabs>
       </main>
     </div>
   );

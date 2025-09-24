@@ -15,6 +15,13 @@ export default function Home() {
     if (session && !isPending) {
       router.push("/dashboard");
     }
+    // In development mode without database, redirect to dashboard
+    if (process.env.NODE_ENV === 'development' && !isPending) {
+      const isDev = !process.env.NEXT_PUBLIC_DATABASE_URL;
+      if (isDev) {
+        router.push("/dashboard");
+      }
+    }
   }, [session, isPending, router]);
 
   if (isPending) {
