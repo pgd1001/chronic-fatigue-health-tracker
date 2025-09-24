@@ -182,6 +182,7 @@
 - [x] 16. Accessibility and "Vibe Coding" Enhancements
 
 
+
   - Implement WCAG 2.1 AA compliance with chronic illness considerations
   - Add high contrast mode and reduced motion preferences
   - Create voice guidance options for eyes-closed activities
@@ -189,7 +190,9 @@
   - Conduct accessibility testing with assistive technologies
   - _Requirements: 4.1, 4.2, 4.3, 4.5_
 
-- [ ] 17. Evidence-Based Content Integration
+- [x] 17. Evidence-Based Content Integration
+
+
   - Integrate NICE guidelines content for ME/CFS and Long COVID
   - Add PhD research citations and evidence-based recommendations
   - Create educational content with empathetic, validating language
